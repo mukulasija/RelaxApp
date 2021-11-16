@@ -4,27 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp">
+    android:padding="10dp"
+    >
 
     <TextView
         android:id="@+id/username"
         android:textStyle="bold"
+        android:textSize="15sp"
         android:textColor="@color/color1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="username"
-        android:layout_marginLeft="30dp"
+        android:layout_height="match_parent"
+        android:text="username: "
+        android:layout_marginTop="1sp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/usermessage"
-        android:textColor="@color/black"
+        android:ems="20"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:text="\nhello afsdsdaafdssdfdsafadsafdsfadsfasdfasdddddddddddddddddddfdsaaaaaaaaaaaa\n"
+        android:layout_marginLeft="2dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/username"
         app:layout_constraintTop_toBottomOf="@id/username"
-        android:text="message">
+        >
     </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

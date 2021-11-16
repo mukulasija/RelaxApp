@@ -29,6 +29,7 @@ import kotlin.collections.ArrayList
  */
 class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
     public val uid = uid
+    public lateinit var username : String
     public lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +49,10 @@ class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
         super.onViewCreated(view, savedInstanceState)
         val usermessage = view.findViewById<TextView>(R.id.message_input)
         val sendBtn = view.findViewById<Button>(R.id.send_button)
+
+        FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
+            username = it.child("name").value.toString()
+        }
         val ref = FirebaseDatabase.getInstance().getReference("Messages").child("No worry")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -80,7 +85,7 @@ class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
             val id = user.push().key.toString()
             val time = Calendar.getInstance().time
             user.child(id).child("message").setValue(message)
-            user.child(id).child("username").setValue("mukul")
+            user.child(id).child("username").setValue(username)
             usermessage.text=""
         }
     }

@@ -42,8 +42,9 @@ class SignUpActivity : AppCompatActivity() {
 
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
                 val usid = mAuth.currentUser?.uid.toString()
+                val currentUser = mAuth.currentUser
+                val username = email.dropLast(10)
                 session.createLoginSession(usid)
-                val username = mAuth.currentUser!!.displayName
                 val ulist = FirebaseDatabase.getInstance()
                 val user = ulist.getReference("userlist").child(usid)
                 user.child("name").setValue(username)

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val uid = intent.getStringExtra("uid").toString()
         val firstFragment = NoWorryFragment(uid)
-        val doesFragment = doesFragment()
+        val doesFragment = doesFragment(uid)
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,firstFragment)
             commit()
