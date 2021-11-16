@@ -16,7 +16,7 @@ import android.widget.Toast
  * Use the [doesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class doesFragment : Fragment(R.layout.fragment_does) {
+class doesFragment : Fragment(R.layout.fragment_chat) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,8 +24,6 @@ class doesFragment : Fragment(R.layout.fragment_does) {
     ): View? {
         Toast.makeText(context, "on create", Toast.LENGTH_SHORT).show()
         val view =  super.onCreateView(inflater, container, savedInstanceState)
-        val textview : TextView = view!!.findViewById<TextView>(R.id.textviewdoes)
-        textview.setText("this is fragment do's")
         return view
     }
 
