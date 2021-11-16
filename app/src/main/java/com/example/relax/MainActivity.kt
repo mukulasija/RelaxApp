@@ -17,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val firstFragment = NoWorryFragment()
+        val doesFragment = doesFragment()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,firstFragment)
+            commit()
+        }
         drawerLayout = findViewById(R.id.drawerLayout)
 
         actionBarToggle = ActionBarDrawerToggle(this,drawerLayout,0,0);
@@ -27,15 +33,23 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener {menuItem->
             when (menuItem.itemId) {
                 R.id.myProfile -> {
-                    Toast.makeText(this, "My Profile", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,firstFragment)
+                        commit()
+                    }
+//                    Toast.makeText(this, "My Profile", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.people -> {
-                    Toast.makeText(this, "People", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,doesFragment)
+                        commit()
+                    }
+//                    Toast.makeText(this, "People", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.settings -> {
-                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> {
