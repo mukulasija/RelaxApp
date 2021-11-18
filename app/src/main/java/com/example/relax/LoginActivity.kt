@@ -46,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
                     toast(this,"Logged in Successfully")
                     // Toast.makeText(this, "tudu tudu", Toast.LENGTH_SHORT).show()
                     val usid = auth.currentUser!!.uid.toString()
+                    val uid = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+                    toast(this,usid)
                     //toast(usid)
                     session.createLoginSession(usid)
                     val i = Intent(this, MainActivity::class.java)

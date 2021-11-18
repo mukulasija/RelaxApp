@@ -22,20 +22,11 @@ class adapter(val items : ArrayList<String>, private val userId: String,val chan
             val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
             val currentItem = items[position]
 
-            var litem = items[position]
-            var luid : String = ""
-            if(position>0)
-            {
-                litem= items[position-1]
-            ref.child(litem).get().addOnSuccessListener {
-               luid = it.child("uid").value.toString()
-            }
+            ref.child(currentItem).get().addOnSuccessListener {
+                if (it.child("showName").value.toString() == "0")
+                    holder.username.isVisible = false
             }
             ref.child(currentItem).get().addOnSuccessListener {
-                if(luid==it.child("uid").value.toString())
-                {
-                    holder.username.isVisible= false
-                }
                 holder.username.text=it.child("username").value.toString()
                 holder.message.text= it.child("message").value.toString()
 //                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()

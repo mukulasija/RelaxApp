@@ -38,10 +38,10 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
         val view =  super.onCreateView(inflater, container, savedInstanceState)
         recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerview)
         val linearlayout = LinearLayoutManager(view.context)
-        linearlayout.stackFromEnd=true
-        linearlayout.orientation=LinearLayoutManager.VERTICAL
-        linearlayout.isSmoothScrollbarEnabled=false
-        recyclerView.layoutManager =linearlayout
+//        linearlayout.isSmoothScrollbarEnabled=false
+//        linearlayout.stackFromEnd=true
+//        linearlayout.orientation=LinearLayoutManager.VERTICAL
+//        recyclerView.layoutManager =linearlayout
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,9 +49,15 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
         val usermessage = view.findViewById<TextView>(R.id.message_input)
         val sendBtn = view.findViewById<Button>(R.id.send_button)
         toast(view.context,"on view created")
+
         FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
             username = it.child("name").value.toString()
         }
+        val linearlayout = LinearLayoutManager(view.context)
+        linearlayout.stackFromEnd=false
+        linearlayout.orientation=LinearLayoutManager.VERTICAL
+        linearlayout.isSmoothScrollbarEnabled=true
+        recyclerView.layoutManager =linearlayout
         val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -64,6 +70,8 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
                     }
                     val adapter2 = adapter(tudulist,uid,channel)
                     recyclerView.adapter = adapter2
+
+                    recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
                 } else {
                 }
             }
@@ -82,12 +90,32 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
             val user = mdb.getReference("Messages").child(channel)
             val id = user.push().key.toString()
             val time = Calendar.getInstance().time
-            user.child(id).child("message").setValue(message)
-            if(username ==null)
-                username="guest"
-            user.child(id).child("username").setValue(username)
-            user.child(id).child("uid").setValue(uid)
+            var lastuser : String = "tudu"
+
+                mdb.getReference("Messages").child(channel).get().addOnSuccessListener {
+                    var luser : String="0"
+                    if(it.children.count()>0)
+                     luser=it.children.elementAt((it.children.count()-1)).child("uid").value.toString()
+                    user.child(id).child("message").setValue(message)
+                    if(username ==null)
+                        username="guest"
+                    user.child(id).child("username").setValue(username)
+                    user.child(id).child("uid").setValue(uid)
+                    user.child(id).child("showName").setValue("1")
+                    if(luser!=null)
+                    {
+                        if(luser==uid)
+                            user.child(id).child("showName").setValue("0")
+                        toast(view.context,luser)
+                    }
+
+                }
+
+//            toast(view.context,lastuser)
+//            toast(view.context,lastuser)
             usermessage.text=""
+
+
         }
     }
 }

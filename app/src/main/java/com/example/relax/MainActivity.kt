@@ -6,23 +6,30 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.relax.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarToggle : ActionBarDrawerToggle
     private lateinit var navView : NavigationView
     private lateinit var binding : ActivityMainBinding
+    public lateinit var uid : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val uid = intent.getStringExtra("uid").toString()
+         uid = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+
+//        val uid = intent.getStringExtra("uid").toString()
         val firstFragment = ChannelFragment(uid,"No worry")
         val doesFragment = ChannelFragment(uid,"does")
 //        val doesFragment = doesFragment(uid)
@@ -31,6 +38,9 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
         drawerLayout = findViewById(R.id.drawerLayout)
+        val headerview = binding.navView.getHeaderView(0)
+        val userview = headerview.findViewById<TextView>(R.id.user_name)
+        applyUsername(userview)
         actionBarToggle = ActionBarDrawerToggle(this,drawerLayout,0,0);
         drawerLayout.addDrawerListener(actionBarToggle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -81,5 +91,22 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+    fun applyUsername(utextview : TextView)
+    {
+        val mdb = FirebaseDatabase.getInstance().getReference()
+        mdb.child("userlist").get().addOnSuccessListener {
+            var name =it.child(uid).child("name").value.toString()
+            utextview.text=name
+        }
+    }
+    fun getUsername(uid : String) :String
+    {
+        val mdb = FirebaseDatabase.getInstance().getReference()
+        var username : String = "username"
+            mdb.child("userlist").get().addOnSuccessListener {
+            var name =it.child(uid).child("name").value.toString()
+        }
+        return username
     }
 }
