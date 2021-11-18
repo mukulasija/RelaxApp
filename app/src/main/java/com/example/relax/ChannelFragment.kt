@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.relax.Session.Companion.uid
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,12 +22,11 @@ import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
- * Use the [NoWorryFragment.newInstance] factory method to
+ * Use the [ChannelFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
-    public val uid = uid
-    public lateinit var username : String
+class ChannelFragment(public val uid: String, public val channel: String) : Fragment(R.layout.fragment_chat) {
+    public var username : String = "guest"
     public lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +39,8 @@ class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
         recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerview)
         val linearlayout = LinearLayoutManager(view.context)
         linearlayout.stackFromEnd=true
+        linearlayout.orientation=LinearLayoutManager.VERTICAL
+        linearlayout.isSmoothScrollbarEnabled=false
         recyclerView.layoutManager =linearlayout
         return view
     }
@@ -49,22 +48,21 @@ class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
         super.onViewCreated(view, savedInstanceState)
         val usermessage = view.findViewById<TextView>(R.id.message_input)
         val sendBtn = view.findViewById<Button>(R.id.send_button)
-
+        toast(view.context,"on view created")
         FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
             username = it.child("name").value.toString()
         }
-        val ref = FirebaseDatabase.getInstance().getReference("Messages").child("No worry")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val tudulist = ArrayList<String>()
                     for (i in snapshot.children) {
-
                         var tudu = i.child("name").value.toString()
                         tudu = i.key.toString()
                         tudulist.add(tudu)
                     }
-                    val adapter2 = adapter(tudulist,uid,"No worry")
+                    val adapter2 = adapter(tudulist,uid,channel)
                     recyclerView.adapter = adapter2
                 } else {
                 }
@@ -81,11 +79,14 @@ class NoWorryFragment(uid : String) : Fragment(R.layout.fragment_chat) {
             val mdb : FirebaseDatabase = FirebaseDatabase.getInstance()
             val cur = uid
             val currentuser = FirebaseAuth.getInstance().currentUser
-            val user = mdb.getReference("Messages").child("No worry")
+            val user = mdb.getReference("Messages").child(channel)
             val id = user.push().key.toString()
             val time = Calendar.getInstance().time
             user.child(id).child("message").setValue(message)
+            if(username ==null)
+                username="guest"
             user.child(id).child("username").setValue(username)
+            user.child(id).child("uid").setValue(uid)
             usermessage.text=""
         }
     }

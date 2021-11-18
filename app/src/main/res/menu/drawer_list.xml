@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/myProfile"
-        android:title="Why Not to worry" />
-    <item
-        android:id="@+id/people"
-        android:title="Do's" />
-    <item
-        android:id="@+id/settings"
-        android:title="Settings" />
+        android:title="#channels"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/no_worry"
+                    android:title="Why Not to worry" />
+                <item
+                    android:id="@+id/do_channel"
+                    android:title="Do's" />
+                <item
+                    android:id="@+id/settings"
+                    android:title="Settings" />
+            </group>
+        </menu>
+    </item>
+
 </menu>

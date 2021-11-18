@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
 import org.w3c.dom.Text
@@ -20,7 +21,21 @@ class adapter(val items : ArrayList<String>, private val userId: String,val chan
         override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
             val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
             val currentItem = items[position]
+
+            var litem = items[position]
+            var luid : String = ""
+            if(position>0)
+            {
+                litem= items[position-1]
+            ref.child(litem).get().addOnSuccessListener {
+               luid = it.child("uid").value.toString()
+            }
+            }
             ref.child(currentItem).get().addOnSuccessListener {
+                if(luid==it.child("uid").value.toString())
+                {
+                    holder.username.isVisible= false
+                }
                 holder.username.text=it.child("username").value.toString()
                 holder.message.text= it.child("message").value.toString()
 //                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()
