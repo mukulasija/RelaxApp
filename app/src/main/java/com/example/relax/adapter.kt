@@ -26,24 +26,10 @@ class adapter(val items : ArrayList<String>, private val userId: String,val chan
         override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
             val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
             val currentItem = items[position]
-
-            ref.child(currentItem).get().addOnSuccessListener {
-                if (it.child("showName").value.toString() == "0")
-                {
-                    holder.username.isVisible = false
-//                    val param = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-//                    param.topMargin=10
-//                    holder.itemView.layoutParams = param
-                }
-                else
-                {
-                    holder.username.isVisible=true
-                }
-            }
             ref.child(currentItem).get().addOnSuccessListener {
                 holder.username.text=it.child("username").value.toString()
                 holder.message.text= it.child("message").value.toString()
-//                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()
+            //                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()
             }
             // holder.titleView.text = currentItem.toString()
         }

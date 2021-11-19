@@ -1,5 +1,6 @@
 package com.example.relax
 
+import android.content.DialogInterface
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.relax.databinding.ActivityMainBinding
@@ -30,8 +32,10 @@ class MainActivity : AppCompatActivity() {
          uid = FirebaseAuth.getInstance().currentUser!!.uid.toString()
 
 //        val uid = intent.getStringExtra("uid").toString()
-        val firstFragment = ChannelFragment(uid,"No worry")
-        val doesFragment = ChannelFragment(uid,"does")
+        val firstFragment = ChannelFragment(uid,"why not to worry")
+        val doesFragment = ChannelFragment(uid,"do's")
+        val dontsFragment = ChannelFragment(uid,"dont's")
+        val oxygenFragment = ChannelFragment(uid,"oxygen availability")
 //        val doesFragment = doesFragment(uid)
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,firstFragment)
@@ -70,7 +74,39 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.donts -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,dontsFragment)
+                        commit()
+                        drawerLayout.closeDrawer(Gravity.LEFT)
+                    }
 //                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.oxygen->
+                {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,oxygenFragment)
+                        commit()
+                        drawerLayout.closeDrawer(Gravity.LEFT)
+                        }
+                    true
+                }
+                R.id.logout->
+                {
+                    AlertDialog.Builder(this)
+                        .setTitle("Log Out")
+                        .setMessage("Are you sure you want to Log Out ?") // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes,
+                            DialogInterface.OnClickListener { dialog, which ->
+                                val session = Session(this)
+                                session.logoutUser()
+                                finishAffinity()
+                                // Continue with delete operation
+                            }) // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show()
                     true
                 }
                 else -> {

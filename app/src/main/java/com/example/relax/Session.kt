@@ -46,11 +46,10 @@ class Session {
     fun logoutUser() {
         editor.clear()
         editor.commit()
-        val i: Intent = Intent(con, MainActivity::class.java)
+        val i: Intent = Intent(con, LoginActivity::class.java)
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         con.startActivity(i)
-
     }
 
     fun isLoggedin(): Boolean {

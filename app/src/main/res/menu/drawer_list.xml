@@ -32,6 +32,11 @@
                     android:icon="@drawable/hashtag"
                     android:id="@+id/donts"
                     android:title="dont's" />
+                <item
+                    android:icon="@drawable/hashtag"
+                    android:id="@+id/oxygen"
+                    android:title="oxygen availability"
+                    ></item>
             </group>
         </menu>
     </item>

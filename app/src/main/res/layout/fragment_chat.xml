@@ -7,12 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ChannelFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-<!--    <TextView-->
-<!--        android:id="@+id/textviewdoes"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:text="do's fragment" />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,7 +16,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/input_bar"
@@ -43,7 +37,7 @@
                 android:layout_weight="0.7"
                 android:layout_width="0dp"
                 android:textColorHint="@color/twitter_extra_light_grey"
-                android:hint="Enter Your message here"
+                android:hint=" Enter Your message here"
                 android:layout_height="match_parent"
                 android:inputType="text" />
             <Button
@@ -51,8 +45,7 @@
                 android:layout_width="40dp"
                android:backgroundTint="@null"
                 android:layout_height="40dp"
-                android:background="@drawable/send_button"
-
+                android:background="@drawable/send_layer"
                 />
 <!--            <ImageButton-->
 <!--                android:id="@+id/send_button"-->

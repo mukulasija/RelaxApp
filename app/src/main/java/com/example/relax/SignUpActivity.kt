@@ -1,18 +1,22 @@
 package com.example.relax
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
+import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.example.relax.databinding.ActivityLoginBinding
 import com.example.relax.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.collection.LLRBNode
 import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
@@ -68,6 +72,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
         spannableString.setSpan(clickableSpan,22,32, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(Color.LTGRAY),22,32,Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         binding.alreadyUser.text = spannableString
         binding.alreadyUser.movementMethod = LinkMovementMethod.getInstance()
     }

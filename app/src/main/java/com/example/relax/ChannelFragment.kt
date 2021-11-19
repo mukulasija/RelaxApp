@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -45,22 +46,7 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
 //        linearlayout.stackFromEnd=true
 //        linearlayout.orientation=LinearLayoutManager.VERTICAL
 //        recyclerView.layoutManager =linearlayout
-        return view
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val usermessage = view.findViewById<TextView>(R.id.message_input)
-        val sendBtn = view.findViewById<Button>(R.id.send_button)
-        toast(view.context,"on view created")
 
-        FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
-            username = it.child("name").value.toString()
-        }
-        val linearlayout = LinearLayoutManager(view.context)
-        linearlayout.stackFromEnd=false
-        linearlayout.orientation=LinearLayoutManager.VERTICAL
-        linearlayout.isSmoothScrollbarEnabled=true
-        recyclerView.layoutManager =linearlayout
         val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -72,9 +58,26 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
                         tudulist.add(tudu)
                     }
                     val adapter2 = adapter(tudulist,uid,channel)
-                    recyclerView.adapter = adapter2
+                    val linearlayout = LinearLayoutManager(view.context)
 
+                    linearlayout.orientation=LinearLayoutManager.VERTICAL
+                    linearlayout.isSmoothScrollbarEnabled=true
+//                    linearlayout.scrollToPosition(adapter2.itemCount-1)
+                    linearlayout.stackFromEnd=true
+//                    linearlayout.scrollToPositionWithOffset(adapter2.itemCount-1,0)
+//                    linearlayout.reverseLayout=true
+                    recyclerView.layoutManager =linearlayout
+                    recyclerView.adapter = adapter2
+                   var i=0;
+                    while(i!=adapter2.itemCount)
+                    {
+                        val rv = recyclerView.adapter
+                        i= rv!!.itemCount
+                    }
+//                    recyclerView.scrollToPosition(adapter2.itemCount-1)
                     recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
+
+//                    recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
                 } else {
                 }
             }
@@ -83,6 +86,55 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
                 TODO("Not yet implemented")
             }
         })
+
+
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val usermessage = view.findViewById<TextView>(R.id.message_input)
+        val sendBtn = view.findViewById<Button>(R.id.send_button)
+        toast(view.context,"on view created")
+
+        FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
+            username = it.child("name").value.toString()
+        }
+        val linearlayout = LinearLayoutManager(view.context)
+//        linearlayout.stackFromEnd=true
+//        linearlayout.orientation=LinearLayoutManager.VERTICAL
+//        linearlayout.isSmoothScrollbarEnabled=true
+//        recyclerView.layoutManager =linearlayout
+//        val ref = FirebaseDatabase.getInstance().getReference("Messages").child(channel)
+//        ref.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    val tudulist = ArrayList<String>()
+//                    for (i in snapshot.children) {
+//                        var tudu = i.child("name").value.toString()
+//                        tudu = i.key.toString()
+//                        tudulist.add(tudu)
+//                    }
+//                    val adapter2 = adapter(tudulist,uid,channel)
+//                    val linearlayout = LinearLayoutManager(view.context)
+//                    linearlayout.stackFromEnd=true
+//                    linearlayout.orientation=LinearLayoutManager.VERTICAL
+//                    linearlayout.isSmoothScrollbarEnabled=true
+//                    recyclerView.layoutManager =linearlayout
+//                    recyclerView.adapter = adapter2
+//                    recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
+//                } else {
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//        })
         sendBtn.setOnClickListener {
             val message = usermessage.text.toString()
             if(message.length==0)
@@ -121,9 +173,7 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
                             MessageList.child(id).child("message").setValue(message)
                             MessageList.child(id).child("username").setValue(username)
                             MessageList.child(id).child("uid").setValue(uid)
-                            MessageList.child(id).child("showName").setValue("1")
                         }
-                        toast(view.context,luser)
                     }
 
                 }
