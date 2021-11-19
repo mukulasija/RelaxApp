@@ -5,8 +5,13 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.core.view.marginLeft
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
 import org.w3c.dom.Text
@@ -24,7 +29,16 @@ class adapter(val items : ArrayList<String>, private val userId: String,val chan
 
             ref.child(currentItem).get().addOnSuccessListener {
                 if (it.child("showName").value.toString() == "0")
+                {
                     holder.username.isVisible = false
+//                    val param = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+//                    param.topMargin=10
+//                    holder.itemView.layoutParams = param
+                }
+                else
+                {
+                    holder.username.isVisible=true
+                }
             }
             ref.child(currentItem).get().addOnSuccessListener {
                 holder.username.text=it.child("username").value.toString()

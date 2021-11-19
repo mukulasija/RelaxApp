@@ -2,23 +2,41 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
-        android:title="#channels"
+        android:title="Welcome"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group>
+              <item
+                  android:icon="@drawable/hashtag"
+                  android:id="@+id/welcomePage"
+                  android:title="welcome"
+                  ></item>
+            </group>
+        </menu>
+    </item>
+    <item
+        android:title="Channels"
         app:showAsAction="ifRoom|withText">
         <menu>
             <group>
                 <item
+                    android:icon="@drawable/hashtag"
                     android:id="@+id/no_worry"
-                    android:title="Why Not to worry" />
+                    android:title="why not to worry" />
                 <item
+                    android:icon="@drawable/hashtag"
                     android:id="@+id/do_channel"
-                    android:title="Do's" />
+                    android:title="do's" />
                 <item
-                    android:id="@+id/settings"
-                    android:title="Settings" />
+                    android:icon="@drawable/hashtag"
+                    android:id="@+id/donts"
+                    android:title="dont's" />
             </group>
         </menu>
     </item>
 
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"></item>
 </menu>

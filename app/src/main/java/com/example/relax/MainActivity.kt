@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var actionBarToggle : ActionBarDrawerToggle
     private lateinit var navView : NavigationView
     private lateinit var binding : ActivityMainBinding
-    public lateinit var uid : String
+   lateinit var uid : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,9 +38,6 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
         drawerLayout = findViewById(R.id.drawerLayout)
-        val headerview = binding.navView.getHeaderView(0)
-        val userview = headerview.findViewById<TextView>(R.id.user_name)
-        applyUsername(userview)
         actionBarToggle = ActionBarDrawerToggle(this,drawerLayout,0,0);
         drawerLayout.addDrawerListener(actionBarToggle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,6 +46,9 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(Gravity.LEFT)
         }
         navView = findViewById(R.id.navView)
+        val headerview = binding.navView.getHeaderView(0)
+        val userview = headerview.findViewById<TextView>(R.id.user_name)
+        applyUsername(userview)
         navView.setNavigationItemSelectedListener {menuItem->
             when (menuItem.itemId) {
                 R.id.no_worry -> {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this, "People", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.settings -> {
+                R.id.donts -> {
 //                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -98,15 +98,8 @@ class MainActivity : AppCompatActivity() {
         mdb.child("userlist").get().addOnSuccessListener {
             var name =it.child(uid).child("name").value.toString()
             utextview.text=name
+            return@addOnSuccessListener
         }
     }
-    fun getUsername(uid : String) :String
-    {
-        val mdb = FirebaseDatabase.getInstance().getReference()
-        var username : String = "username"
-            mdb.child("userlist").get().addOnSuccessListener {
-            var name =it.child(uid).child("name").value.toString()
-        }
-        return username
-    }
+
 }

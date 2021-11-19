@@ -15,6 +15,6 @@
     <color name="twitter_light_grey">#AAB8C2</color>
     <color name="twitter_extra_light_grey">#E1E8ED</color>
     <color name="twitter_very_light">#F5F8FA</color>
-
+    <color name="chat_background">#E7657786</color>
 
 </resources>

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Relax" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/twitter_light_grey</item>
         <item name="colorPrimaryVariant">@color/twitter_dark_grey</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+            <item name="backgroundTint">@null</item>
+
     </style>
 </resources>

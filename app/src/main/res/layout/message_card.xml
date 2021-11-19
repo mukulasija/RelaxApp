@@ -7,6 +7,7 @@
     android:padding="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginTop="10dp"
+
     android:background="@drawable/message_box"
     >
     <TextView
@@ -16,7 +17,6 @@
         android:textColor="@color/twitter_black"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="username: "
         android:layout_marginTop="1sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,6 @@
         android:ems="20"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="\nhello afsdsdaafdssdfdsafadsafdsfadsfasdfasdddddddddddddddddddfdsaaaaaaaaaaaa\n"
         android:layout_marginLeft="2dp"
         android:textColor="@color/twitter_extra_light_grey"
         android:textSize="14sp"

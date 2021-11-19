@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E7657786"
+    android:background="@color/chat_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ChannelFragment">
 
@@ -16,47 +16,49 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:foregroundGravity="top"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:stackFromEnd="true"
-
             android:layout_marginTop="32dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/input_bar"
             tools:listitem="@layout/message_card" />
-
         <LinearLayout
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/input_bar"
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@color/twitter_dark_grey"
             android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/message_input"
                 android:layout_weight="0.7"
                 android:layout_width="0dp"
+                android:textColorHint="@color/twitter_extra_light_grey"
+                android:hint="Enter Your message here"
                 android:layout_height="match_parent"
                 android:inputType="text" />
-
             <Button
                 android:id="@+id/send_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:text="send"/>
+                android:layout_width="40dp"
+               android:backgroundTint="@null"
+                android:layout_height="40dp"
+                android:background="@drawable/send_button"
 
+                />
+<!--            <ImageButton-->
+<!--                android:id="@+id/send_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/custom_button"></ImageButton>-->
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

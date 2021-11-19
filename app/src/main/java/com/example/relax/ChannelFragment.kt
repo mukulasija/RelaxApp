@@ -33,6 +33,9 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val activity = activity
+        val title = activity!!.findViewById<TextView>(R.id.action_bar_text)
+        title.text=channel
         val ll = ArrayList<String>()
         ll.add("mukul")
         val view =  super.onCreateView(inflater, container, savedInstanceState)
@@ -87,25 +90,39 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
             val mdb : FirebaseDatabase = FirebaseDatabase.getInstance()
             val cur = uid
             val currentuser = FirebaseAuth.getInstance().currentUser
-            val user = mdb.getReference("Messages").child(channel)
-            val id = user.push().key.toString()
+            val MessageList = mdb.getReference("Messages").child(channel)
+            val id = MessageList.push().key.toString()
             val time = Calendar.getInstance().time
             var lastuser : String = "tudu"
 
                 mdb.getReference("Messages").child(channel).get().addOnSuccessListener {
                     var luser : String="0"
+                    var lmessage = it.child("uid")
+                    var lastmessage : String = "0"
                     if(it.children.count()>0)
-                     luser=it.children.elementAt((it.children.count()-1)).child("uid").value.toString()
-                    user.child(id).child("message").setValue(message)
+                    {
+                        luser=it.children.elementAt((it.children.count()-1)).child("uid").value.toString()
+                        lmessage =it.children.elementAt(it.children.count()-1)
+                         lastmessage = lmessage.child("message").value.toString()
+                        luser = lmessage.child("uid").value.toString()
+                    }
                     if(username ==null)
                         username="guest"
-                    user.child(id).child("username").setValue(username)
-                    user.child(id).child("uid").setValue(uid)
-                    user.child(id).child("showName").setValue("1")
+
                     if(luser!=null)
                     {
                         if(luser==uid)
-                            user.child(id).child("showName").setValue("0")
+                        {
+                            val newmessage = lastmessage+"\n"+message
+                            MessageList.child(lmessage.key.toString()).child("message").setValue(newmessage)
+                        }
+                        else
+                        {
+                            MessageList.child(id).child("message").setValue(message)
+                            MessageList.child(id).child("username").setValue(username)
+                            MessageList.child(id).child("uid").setValue(uid)
+                            MessageList.child(id).child("showName").setValue("1")
+                        }
                         toast(view.context,luser)
                     }
 

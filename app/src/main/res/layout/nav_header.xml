@@ -5,6 +5,7 @@
     android:id="@+id/navConstraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageButton
@@ -16,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/ic_profile_pic"
-        ></ImageButton>
+        android:src="@drawable/ic_profile_pic" />
+
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
@@ -26,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/profile_pic"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="#channels"
+        android:text="username"
         android:textSize="20sp"
-        android:textColor="@color/black"></TextView>
+        android:textColor="@color/black" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/twitter_dark_grey"
     android:layout_height="50dp">
+
   <ImageButton
       android:id="@+id/menu_action_bar"
       app:layout_constraintLeft_toLeftOf="parent"
@@ -11,15 +12,22 @@
       app:layout_constraintBottom_toBottomOf="parent"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/ic_baseline_menu_24"></ImageButton>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Relax App"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/menu_action_bar"
-        ></TextView>
+      android:src="@drawable/ic_baseline_menu_24" />
+
+  <TextView
+      android:gravity="center"
+      android:drawablePadding="5dp"
+      android:drawableTint="@color/twitter_extra_light_grey"
+      android:drawableLeft="@drawable/hashtag"
+      android:textSize="20sp"
+      android:textColor="@color/twitter_extra_light_grey"
+      android:textStyle="italic|bold"
+      android:id="@+id/action_bar_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Relax App"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/menu_action_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
