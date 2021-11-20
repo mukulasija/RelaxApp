@@ -26,8 +26,7 @@ An Android application 📱 built using Kotlin,Firebase
 ||||
 |:----------------------------------------:|:-----------------------------------------:|:-----------------------------------------: |
 | ![Imgur](screenshots/0.jpg) | ![Imgur](screenshots/1.jpg) | ![Imgur](screenshots/2.jpg) |
-| ![Imgur](screenshots/3.jpg) | ![Imgur](screenshots/4.jpg) | ![Imgur](screenshots/5.jpg) |
-| ![Imgur](screenshots/6.jpg)
+| ![Imgur](screenshots/3.jpg) | ![Imgur](screenshots/4.jpg) | ![Imgur](screenshots/6.jpg) |
 
 ## ⚡ Dependencies Used
 ```sh
