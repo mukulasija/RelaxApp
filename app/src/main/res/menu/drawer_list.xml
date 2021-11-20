@@ -22,6 +22,11 @@
             <group>
                 <item
                     android:icon="@drawable/hashtag"
+                    android:id="@+id/general"
+                    android:title="general"
+                    ></item>
+                <item
+                    android:icon="@drawable/hashtag"
                     android:id="@+id/no_worry"
                     android:title="why not to worry" />
                 <item
@@ -34,9 +39,15 @@
                     android:title="dont's" />
                 <item
                     android:icon="@drawable/hashtag"
-                    android:id="@+id/oxygen"
-                    android:title="oxygen availability"
+                    android:id="@+id/experience"
+                    android:title="experiences and stories"
                     ></item>
+                <item
+                    android:icon="@drawable/hashtag"
+                    android:id="@+id/fun"
+                    android:title="fun"
+                    ></item>
+
             </group>
         </menu>
     </item>

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -75,8 +77,7 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
                         i= rv!!.itemCount
                     }
 //                    recyclerView.scrollToPosition(adapter2.itemCount-1)
-                    recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
-
+                    recyclerView.smoothScrollToPosition(adapter2.itemCount)
 //                    recyclerView.smoothScrollToPosition(adapter2.itemCount-1)
                 } else {
                 }
@@ -97,10 +98,18 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val usermessage = view.findViewById<TextView>(R.id.message_input)
         val sendBtn = view.findViewById<Button>(R.id.send_button)
-        toast(view.context,"on view created")
 
+        if(channel=="welcome")
+        {
+            usermessage.maxLines=1
+            usermessage.isEnabled=false
+            usermessage.hint="You can't send messages to this channel"
+            sendBtn.isVisible=false
+            sendBtn.isClickable=false
+        }
         FirebaseDatabase.getInstance().getReference("userlist").child(uid).get().addOnSuccessListener {
             username = it.child("name").value.toString()
         }
@@ -178,8 +187,6 @@ class ChannelFragment(public val uid: String, public val channel: String) : Frag
 
                 }
 
-//            toast(view.context,lastuser)
-//            toast(view.context,lastuser)
             usermessage.text=""
 
 

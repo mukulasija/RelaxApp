@@ -1,7 +1,5 @@
 package com.example.relax
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import androidx.core.view.marginTop
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.FirebaseDatabase
-import org.w3c.dom.Text
 
 class adapter(val items : ArrayList<String>, private val userId: String,val channel : String) : RecyclerView.Adapter<StudentViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
@@ -29,8 +26,9 @@ class adapter(val items : ArrayList<String>, private val userId: String,val chan
             ref.child(currentItem).get().addOnSuccessListener {
                 holder.username.text=it.child("username").value.toString()
                 holder.message.text= it.child("message").value.toString()
-            //                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()
+                //                holder.titleView.text=  (position+1).toString() + ". "+ it.child("name").value.toString().capitalize()
             }
+
             // holder.titleView.text = currentItem.toString()
         }
 

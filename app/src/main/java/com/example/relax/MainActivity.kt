@@ -1,12 +1,9 @@
 package com.example.relax
 
 import android.content.DialogInterface
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
-import android.view.Window
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -16,7 +13,6 @@ import com.example.relax.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -35,10 +31,13 @@ class MainActivity : AppCompatActivity() {
         val firstFragment = ChannelFragment(uid,"why not to worry")
         val doesFragment = ChannelFragment(uid,"do's")
         val dontsFragment = ChannelFragment(uid,"dont's")
-        val oxygenFragment = ChannelFragment(uid,"oxygen availability")
+        val experienceFragment = ChannelFragment(uid,"experiences and stories")
+        val generalFragment = ChannelFragment(uid,"general")
+        val welcomeFragment = ChannelFragment(uid,"welcome")
+        val funFragment = ChannelFragment(uid,"let's have fun")
 //        val doesFragment = doesFragment(uid)
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,firstFragment)
+            replace(R.id.flFragment,welcomeFragment)
             commit()
         }
         drawerLayout = findViewById(R.id.drawerLayout)
@@ -55,6 +54,24 @@ class MainActivity : AppCompatActivity() {
         applyUsername(userview)
         navView.setNavigationItemSelectedListener {menuItem->
             when (menuItem.itemId) {
+               R.id.`fun`->{
+                   supportFragmentManager.beginTransaction().apply {
+                       replace(R.id.flFragment,funFragment)
+                       commit()
+                       drawerLayout.closeDrawer(Gravity.LEFT)
+                   }
+                   true
+               }
+                R.id.welcomePage->
+                {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,welcomeFragment)
+                        commit()
+                        drawerLayout.closeDrawer(Gravity.LEFT)
+                    }
+//                    Toast.makeText(this, "My Profile", Toast.LENGTH_SHORT).show()
+                    true
+                }
                 R.id.no_worry -> {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.flFragment,firstFragment)
@@ -82,13 +99,22 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.oxygen->
+                R.id.experience->
                 {
                     supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.flFragment,oxygenFragment)
+                        replace(R.id.flFragment,experienceFragment)
                         commit()
                         drawerLayout.closeDrawer(Gravity.LEFT)
                         }
+                    true
+                }
+                R.id.general->
+                {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.flFragment,generalFragment)
+                        commit()
+                        drawerLayout.closeDrawer(Gravity.LEFT)
+                    }
                     true
                 }
                 R.id.logout->
