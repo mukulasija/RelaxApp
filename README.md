@@ -12,7 +12,7 @@ An Android application 📱 built using Kotlin,Firebase
 * You can switch users using the Login/Register
 * You can help Covid Pateints
 * Covid Patients Can take help from you
-* Implemented login, register,edit password, previous attempts all using SQL Lite DB using Room 
+* Implemented login, register,edit password
 
 ## 🚀 Technology Used
 
