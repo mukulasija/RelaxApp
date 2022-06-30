@@ -4,7 +4,7 @@ An Android application 📱 built using Kotlin,Firebase
 
 ## ❤️ Try App
 ---------------
-### Get Apk [Download here](https://drive.google.com/drive/folders/1dZWGQcxY-GsFRaXbKPndGivrUoZWMB-p)
+### Get Apk [Download here](https://drive.google.com/file/d/19GT4L9iT_m_PRQHh5xlBn0sv8h6o6eDe/view?usp=sharing)
 ------------
 ## ⚙️ Features
 * App consists of Different Channels
